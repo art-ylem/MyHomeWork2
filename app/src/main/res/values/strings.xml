@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">MyHomeWork2</string>
+    <string name="news">Новости</string>
+    <string name="actions">События</string>
+    <string name="movie">Фильмы</string>
+    <string name="movie_name">Название фильма</string>
+</resources>
