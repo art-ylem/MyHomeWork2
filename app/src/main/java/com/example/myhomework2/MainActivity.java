@@ -30,13 +30,13 @@ public class MainActivity extends AppCompatActivity {
             switch(item.getItemId())
             {
                 case R.id.actions:
-
+                    frag(FragmentEventsAdapter.newInstance());
                     break;
                 case R.id.news:
-
+                    frag(FragmentNewsAdapter.newInstance());
                 break;
                 case R.id.movie:
-frag(FragmentMovieAdapter.newInstance());
+                    frag(FragmentMovieAdapter.newInstance());
                     break;
                 default:
                     return true;

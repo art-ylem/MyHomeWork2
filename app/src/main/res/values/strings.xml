@@ -4,4 +4,5 @@
     <string name="actions">События</string>
     <string name="movie">Фильмы</string>
     <string name="movie_name">Название фильма</string>
+    <string name="place">Место</string>
 </resources>
