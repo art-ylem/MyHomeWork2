@@ -1,4 +1,4 @@
-package com.example.myhomework2.events;
+package com.example.myhomework2.model.events;
 
 
 import com.google.gson.annotations.Expose;

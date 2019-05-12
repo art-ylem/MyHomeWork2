@@ -1,11 +1,10 @@
-package com.example.myhomework2;
+package com.example.myhomework2.view;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.example.myhomework2.model.events.Image;
-import com.example.myhomework2.view.FragmentScreenSlidePage;
 
 import java.util.List;
 

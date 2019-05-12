@@ -1,4 +1,4 @@
-package com.example.myhomework2;
+package com.example.myhomework2.view;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,38 +9,28 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-
+import com.example.myhomework2.FragmentNewsPresenter;
+import com.example.myhomework2.R;
 import com.example.myhomework2.model.news.News;
 
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
-
-public class FragmentNewsAdapter extends Fragment {
+public class FragmentNews extends Fragment implements FragmentNewsView{
 
 
-    private final String FIELDS = "publication_date,title,id,place,description,images";
     private RecycleViewNewsAdapter recycleViewNewsAdapter;
     private RecyclerView recyclerView;
+    private FragmentNewsPresenter fragmentNewsPresenter;
 
-    public static FragmentNewsAdapter newInstance() {
-        FragmentNewsAdapter fragment = new FragmentNewsAdapter();
+    public static FragmentNews newInstance() {
+        FragmentNews fragment = new FragmentNews();
         return fragment;
 
     }
-//    public void frag2(Fragment fragment){
-//        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-//        transaction.replace(R.id.information_fragment_container, fragment);
-//        transaction.addToBackStack(null);
-//        transaction.commit();
-//    }
 
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.news_fragment, container, false);
         return view;
     }
@@ -51,18 +41,18 @@ public class FragmentNewsAdapter extends Fragment {
         MainActivity mainActivity;
         mainActivity = (MainActivity) getActivity();
         recyclerView = view.findViewById(R.id.container_recycler_view_news);
+        fragmentNewsPresenter = new FragmentNewsPresenter(this);
+        fragmentNewsPresenter.loadData();
 
 
 
-        getNews()
-                .subscribeOn(Schedulers.io())//где выполняется
-                .observeOn(AndroidSchedulers.mainThread())//гд
-                .doOnNext(news -> {
-                    recycleViewNewsAdapter = new RecycleViewNewsAdapter(getContext(), news.getResults());
-                    recyclerView.setAdapter(recycleViewNewsAdapter);
-                })
-                .subscribe();
+    }
 
+    @Override
+    public void recyclerNews(News news) {
+
+        recycleViewNewsAdapter = new RecycleViewNewsAdapter(getContext(), news.getResults());
+        recyclerView.setAdapter(recycleViewNewsAdapter);
     }
 
     public interface OnFragmentInteractionListener {
@@ -70,9 +60,4 @@ public class FragmentNewsAdapter extends Fragment {
         void onAccountFragmentInteraction();
     }
 
-    private Observable<News> getNews(){
-        return NetworkService.getInstance()//создание HTTP клиента и вызов метода с сервера
-                .getJSONApi()
-                .getNews(30, FIELDS);
-    }
 }

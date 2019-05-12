@@ -1,38 +1,34 @@
 package com.example.myhomework2;
 
-import android.view.View;
-
-import com.example.myhomework2.model.movies.Movies;
-import com.example.myhomework2.view.FragmentMovieView;
+import com.example.myhomework2.model.events.Events;
+import com.example.myhomework2.view.FragmentEventsView;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class FragmentMoviePresenter {
+public class FragmentEventsPresenter {
 
-    public static final String FIELD = "trailer,title,images,poster";
-    FragmentMovieView fragmentMovieView;
+    private final String FIELDS = "images,id,dates,short_title,title,place,location,categories,tagline,age_restriction,price,is_free,site_url";
+    FragmentEventsView fragmentMovieView;
 
-    public FragmentMoviePresenter(FragmentMovieView fragmentMovieView) {
+    public FragmentEventsPresenter(FragmentEventsView fragmentMovieView) {
         this.fragmentMovieView = fragmentMovieView;
     }
 
-    public void loadData(View view){
+    public void loadData(){
 
-
-        getNames()
+        getLocations()
                 .subscribeOn(Schedulers.io())//где выполняется
                 .observeOn(AndroidSchedulers.mainThread())//гд
-                .doOnNext(movies -> fragmentMovieView.recycler(movies))
+                .doOnNext(events -> fragmentMovieView.recyclerEvents(events.getResults()))
                 .subscribe();
     }
 
-
-    private Observable<Movies> getNames(){
+    private Observable<Events> getLocations(){
         return NetworkService.getInstance()//создание HTTP клиента и вызов метода с сервера
                 .getJSONApi()
-                .getMovieName(FIELD);
+                .getEvents(30, FIELDS);
     }
 
 

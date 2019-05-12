@@ -1,4 +1,4 @@
-package com.example.myhomework2;
+package com.example.myhomework2.view;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -11,22 +11,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.myhomework2.FragmentMoviePresenter;
+import com.example.myhomework2.R;
 import com.example.myhomework2.model.movies.Movies;
 
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 
 
-public class FragmentMovieAdapter extends Fragment {
+public class FragmentMovie extends Fragment implements FragmentMovieView{
 
-    public static final String FIELD = "trailer,title,images,poster";
     RecyclerView recyclerView;
     RecyclerViewMovieAdapter recyclerViewMovieAdapter;
+    FragmentMoviePresenter fragmentMoviePresenter;
+    public CompositeDisposable compositeDisposable = new CompositeDisposable();
 
 
-    public static FragmentMovieAdapter newInstance() {
-        FragmentMovieAdapter f = new FragmentMovieAdapter();
+
+
+    public static FragmentMovie newInstance() {
+        FragmentMovie f = new FragmentMovie();
         return f;
     }
 
@@ -34,22 +38,10 @@ public class FragmentMovieAdapter extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        MainActivity mainActivity;
-        mainActivity = (MainActivity) getActivity();
-        recyclerView = view.findViewById(R.id.recycler_view);
+        recyclerView = view.findViewById(R.id.recycler_view_movies_container);
+        fragmentMoviePresenter = new FragmentMoviePresenter(this);
+        fragmentMoviePresenter.loadData();
 
-        getNames()
-                .subscribeOn(Schedulers.io())//где выполняется
-                .observeOn(AndroidSchedulers.mainThread())//гд
-                .doOnNext(movies -> {
-
-                    recyclerViewMovieAdapter = new RecyclerViewMovieAdapter(movies, getContext());
-                    recyclerView.setAdapter(recyclerViewMovieAdapter);
-                    recyclerViewMovieAdapter.getItemClick().subscribe(result -> {
-openWebPage(result.getTrailer());                    });
-
-                } )
-                .subscribe();
 
     }
 
@@ -58,15 +50,24 @@ openWebPage(result.getTrailer());                    });
         return inflater.inflate(R.layout.movies_fragment,container,false);
     }
 
-    private Observable<Movies> getNames(){
-        return NetworkService.getInstance()//создание HTTP клиента и вызов метода с сервера
-                .getJSONApi()
-                .getMovieName(FIELD);
-    }
-
     private void openWebPage(String url) {
         Uri webpage = Uri.parse(url);
         Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
         startActivity(intent);
+    }
+
+    @Override
+    public void recycler(Movies movies) {
+        recyclerViewMovieAdapter = new RecyclerViewMovieAdapter(movies, getContext());
+        recyclerView.setAdapter(recyclerViewMovieAdapter);
+        Disposable disposable = recyclerViewMovieAdapter.getItemClick().subscribe(result -> openWebPage(result.getTrailer()));
+        compositeDisposable.add(disposable);
+    }
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if(compositeDisposable != null) compositeDisposable.dispose();
     }
 }

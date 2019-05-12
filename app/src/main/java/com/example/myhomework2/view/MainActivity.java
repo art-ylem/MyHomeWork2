@@ -1,4 +1,4 @@
-package com.example.myhomework2;
+package com.example.myhomework2.view;
 
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -6,7 +6,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity implements InformationFragment.OnFragmentInteractionListener{
+import com.example.myhomework2.R;
+
+public class MainActivity extends AppCompatActivity implements FragmentInformation.OnFragmentInteractionListener{
 
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
@@ -30,13 +32,13 @@ public class MainActivity extends AppCompatActivity implements InformationFragme
             switch(item.getItemId())
             {
                 case R.id.actions:
-                    frag(FragmentEventsAdapter.newInstance());
+                    frag(FragmentEvents.newInstance());
                     break;
                 case R.id.news:
-                    frag(FragmentNewsAdapter.newInstance());
+                    frag(FragmentNews.newInstance());
                 break;
                 case R.id.movie:
-                    frag(FragmentMovieAdapter.newInstance());
+                    frag(FragmentMovie.newInstance());
                     break;
                 default:
                     return true;

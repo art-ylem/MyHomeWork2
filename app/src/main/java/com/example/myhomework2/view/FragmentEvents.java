@@ -1,4 +1,4 @@
-package com.example.myhomework2;
+package com.example.myhomework2.view;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,30 +9,29 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.myhomework2.model.events.Events;
+import com.example.myhomework2.FragmentEventsPresenter;
+import com.example.myhomework2.R;
+import com.example.myhomework2.model.events.Result;
 
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
+import java.util.ArrayList;
 
-public class FragmentEventsAdapter extends Fragment {
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+
+public class FragmentEvents extends Fragment implements FragmentEventsView {
 
 
-    private final String FIELDS = "images,id,dates,short_title,title,place,location,categories,tagline,age_restriction,price,is_free,site_url";
     private RecycleViewEventsAdapter recycleViewEventsAdapter;
     private RecyclerView recyclerView;
+    private MainActivity mainActivity;
+    private FragmentEventsPresenter fragmentEventsPresenter;
+    public  CompositeDisposable compositeDisposable = new CompositeDisposable();
 
-    public static FragmentEventsAdapter newInstance() {
-        FragmentEventsAdapter fragment = new FragmentEventsAdapter();
+    public static FragmentEvents newInstance() {
+        FragmentEvents fragment = new FragmentEvents();
         return fragment;
 
     }
-//    public void frag2(Fragment fragment){
-//        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-//        transaction.replace(R.id.information_fragment_container, fragment);
-//        transaction.addToBackStack(null);
-//        transaction.commit();
-//    }
 
 
 
@@ -47,24 +46,21 @@ public class FragmentEventsAdapter extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        MainActivity mainActivity;
-        mainActivity = (MainActivity) getActivity();
         recyclerView = view.findViewById(R.id.container_recycler_view_events);
+        mainActivity = (MainActivity) getActivity();
+        fragmentEventsPresenter = new FragmentEventsPresenter(this);
+        fragmentEventsPresenter.loadData();
 
 
 
-        getLocations()
-                .subscribeOn(Schedulers.io())//где выполняется
-                .observeOn(AndroidSchedulers.mainThread())//гд
-                .doOnNext(events -> {
-                    recycleViewEventsAdapter = new RecycleViewEventsAdapter(getContext(), events.getResults());
-                    recyclerView.setAdapter(recycleViewEventsAdapter);
-                    recycleViewEventsAdapter.getItemClick().subscribe(results ->{
-                        mainActivity.frag(InformationFragment.newInstance(results.getId().toString()));
-                    } );
-                })
-                .subscribe();
+    }
 
+    @Override
+    public void recyclerEvents(ArrayList<Result> data) {
+        recycleViewEventsAdapter = new RecycleViewEventsAdapter(getContext(), data);
+        recyclerView.setAdapter(recycleViewEventsAdapter);
+        Disposable disposable = recycleViewEventsAdapter.getItemClick().subscribe(results -> mainActivity.frag(FragmentInformation.newInstance(results.getId().toString())));
+        compositeDisposable.add(disposable);
     }
 
     public interface OnFragmentInteractionListener {
@@ -72,9 +68,10 @@ public class FragmentEventsAdapter extends Fragment {
         void onAccountFragmentInteraction();
     }
 
-    private Observable<Events> getLocations(){
-        return NetworkService.getInstance()//создание HTTP клиента и вызов метода с сервера
-                .getJSONApi()
-                .getEvents(30, FIELDS);
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if(compositeDisposable != null) compositeDisposable.dispose();
     }
 }

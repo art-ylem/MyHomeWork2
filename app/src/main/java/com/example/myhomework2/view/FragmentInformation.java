@@ -1,4 +1,4 @@
-package com.example.myhomework2;
+package com.example.myhomework2.view;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -12,16 +12,16 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.myhomework2.FragmentInformationPresenter;
+import com.example.myhomework2.R;
 import com.example.myhomework2.model.postInformation.Dates;
 import com.example.myhomework2.model.postInformation.InfoPost;
 
 import java.text.SimpleDateFormat;
 
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
+public class FragmentInformation extends Fragment implements FragmentInformationView{
 
-public class InformationFragment extends Fragment {
+    FragmentInformationPresenter fragmentInformationPresenter;
 
     private OnFragmentInteractionListener mListener;
     private String id;
@@ -37,8 +37,8 @@ public class InformationFragment extends Fragment {
     private TextView likeText;
     private TextView text_under_desc_text;
 
-    public static InformationFragment newInstance(String id) {
-        InformationFragment fragment = new InformationFragment();
+    public static FragmentInformation newInstance(String id) {
+        FragmentInformation fragment = new FragmentInformation();
         Bundle args = new Bundle();
         args.putString("idKey", id);
         fragment.setArguments(args);
@@ -76,28 +76,10 @@ public class InformationFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         backBtn.setOnClickListener(v -> getActivity().onBackPressed());
-
-
-        getInformation(id)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnNext(
-                        infoPost -> {
-                            textViewdesc.setText(stripHtml(setTextString(infoPost.getDescription(), "Полное описание отсутствует")));
-                            textViewTitle.setText(setTextString(infoPost.getTitle(),"Название в разработке"));
-                            textViewLocation.setText(setTextString(infoPost.getLocation().getSlug(), "город проведения в разработке"));
-                            textViewPrice.setText(setPrice(infoPost.getPrice(), infoPost.getIs_free(),"Цена неee определена" ));
-                            publicationDate.setText(setTextString("Опубликовано: " + infoPost.getPublication_date(),"Дата публикации"));
-                            textAge.setText(setAgeRestriction(infoPost.getAge_restriction()));
-                            likeText.setText(setTextString(infoPost.getFavorites_count(),"100"));
-//                            textData.setText(setDataStart(infoPost.getDates(),infoPost.getDates(),"Дата начала еще не определена"));???
-                            text_under_desc_text.setText(stripHtml(setTextString(infoPost.getBody_text(),"")));
-                        }
-                )
-                .subscribe();
-
-
+        fragmentInformationPresenter = new FragmentInformationPresenter(this);
+        fragmentInformationPresenter.loadData(id);
     }
+
     public String setTextString(String title, String elsee){
         if(title != null && title != "" && title != " ") return title;
         else return elsee;
@@ -148,16 +130,25 @@ public class InformationFragment extends Fragment {
         super.onDestroyView();
     }
 
+    @Override
+    public void informationMethod(InfoPost infoPost) {
+        textViewdesc.setText(stripHtml(setTextString(infoPost.getDescription(), "Полное описание отсутствует")));
+        textViewTitle.setText(setTextString(infoPost.getTitle(),"Название в разработке"));
+        textViewLocation.setText(setTextString(infoPost.getLocation().getSlug(), "город проведения в разработке"));
+        textViewPrice.setText(setPrice(infoPost.getPrice(), infoPost.getIs_free(),"Цена неee определена" ));
+        publicationDate.setText(setTextString("Опубликовано: " + infoPost.getPublication_date(),"Дата публикации"));
+        textAge.setText(setAgeRestriction(infoPost.getAge_restriction()));
+        likeText.setText(setTextString(infoPost.getFavorites_count(),"100"));
+//                            textData.setText(setDataStart(infoPost.getDates(),infoPost.getDates(),"Дата начала еще не определена"));???
+        text_under_desc_text.setText(stripHtml(setTextString(infoPost.getBody_text(),"")));
+    }
+
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onAccountFragmentInteraction();
     }
 
-    private Observable<InfoPost> getInformation(String id) {
-        return NetworkService.getInstance()//создание HTTP клиента и вызов метода с сервера
-                .getJSONApi()
-                .getPostInformationById(id);
-    }
+
     public String stripHtml(String html)
     {
         return Html.fromHtml(html).toString();

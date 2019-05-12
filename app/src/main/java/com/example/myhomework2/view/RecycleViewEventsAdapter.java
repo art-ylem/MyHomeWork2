@@ -1,4 +1,4 @@
-package com.example.myhomework2;
+package com.example.myhomework2.view;
 
 import android.content.Context;
 import android.support.v4.view.ViewPager;
@@ -8,9 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.myhomework2.R;
 import com.example.myhomework2.model.events.Date;
 import com.example.myhomework2.model.events.Result;
-import com.example.myhomework2.view.MainActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

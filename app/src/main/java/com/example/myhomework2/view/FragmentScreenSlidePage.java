@@ -1,4 +1,4 @@
-package com.example.myhomework2;
+package com.example.myhomework2.view;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,15 +10,16 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.example.myhomework2.R;
 
-public class ScreenSlidePageFragment extends Fragment {
+public class FragmentScreenSlidePage extends Fragment {
 
 public static String url;
 public ImageView imageView;
 
 
-public static ScreenSlidePageFragment newInstance(String str) {
-    ScreenSlidePageFragment fragment = new ScreenSlidePageFragment();
+public static FragmentScreenSlidePage newInstance(String str) {
+    FragmentScreenSlidePage fragment = new FragmentScreenSlidePage();
     Bundle args = new Bundle();
     args.putString("str", str);
     fragment.setArguments(args);

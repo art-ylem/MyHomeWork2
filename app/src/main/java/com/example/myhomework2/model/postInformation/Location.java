@@ -1,4 +1,4 @@
-package com.example.myhomework2.postInformation;
+package com.example.myhomework2.model.postInformation;
 
 public class Location
 {
