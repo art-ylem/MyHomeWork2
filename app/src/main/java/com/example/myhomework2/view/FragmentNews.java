@@ -9,21 +9,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.myhomework2.events.Events;
+
+import com.example.myhomework2.model.news.News;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class FragmentEventsAdapter extends Fragment {
+public class FragmentNewsAdapter extends Fragment {
 
 
-    private final String FIELDS = "images,id,dates,short_title,title,place,location,categories,tagline,age_restriction,price,is_free,site_url";
-    private RecycleViewEventsAdapter recycleViewEventsAdapter;
+    private final String FIELDS = "publication_date,title,id,place,description,images";
+    private RecycleViewNewsAdapter recycleViewNewsAdapter;
     private RecyclerView recyclerView;
 
-    public static FragmentEventsAdapter newInstance() {
-        FragmentEventsAdapter fragment = new FragmentEventsAdapter();
+    public static FragmentNewsAdapter newInstance() {
+        FragmentNewsAdapter fragment = new FragmentNewsAdapter();
         return fragment;
 
     }
@@ -40,7 +41,7 @@ public class FragmentEventsAdapter extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.events_fragment, container, false);
+        View view = inflater.inflate(R.layout.news_fragment, container, false);
         return view;
     }
 
@@ -49,16 +50,16 @@ public class FragmentEventsAdapter extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         MainActivity mainActivity;
         mainActivity = (MainActivity) getActivity();
-        recyclerView = view.findViewById(R.id.container_recycler_view_events);
+        recyclerView = view.findViewById(R.id.container_recycler_view_news);
 
 
 
-        getLocations()
+        getNews()
                 .subscribeOn(Schedulers.io())//где выполняется
                 .observeOn(AndroidSchedulers.mainThread())//гд
-                .doOnNext(events -> {
-                    recycleViewEventsAdapter = new RecycleViewEventsAdapter(getContext(), events.getResults());
-                    recyclerView.setAdapter(recycleViewEventsAdapter);
+                .doOnNext(news -> {
+                    recycleViewNewsAdapter = new RecycleViewNewsAdapter(getContext(), news.getResults());
+                    recyclerView.setAdapter(recycleViewNewsAdapter);
                 })
                 .subscribe();
 
@@ -69,9 +70,9 @@ public class FragmentEventsAdapter extends Fragment {
         void onAccountFragmentInteraction();
     }
 
-    private Observable<Events> getLocations(){
+    private Observable<News> getNews(){
         return NetworkService.getInstance()//создание HTTP клиента и вызов метода с сервера
                 .getJSONApi()
-                .getEvents(30, FIELDS);
+                .getNews(30, FIELDS);
     }
 }

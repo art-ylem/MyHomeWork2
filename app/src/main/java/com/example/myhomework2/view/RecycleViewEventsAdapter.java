@@ -8,8 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.myhomework2.events.Date;
-import com.example.myhomework2.events.Result;
+import com.example.myhomework2.model.events.Date;
+import com.example.myhomework2.model.events.Result;
+import com.example.myhomework2.view.MainActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -51,7 +52,6 @@ public class RecycleViewEventsAdapter extends RecyclerView.Adapter<RecycleViewEv
             holder.mPager.setAdapter(screenSlidePagerAdapter);
 
         }
-
 
         holder.textViewLocation.setText(setTextString(rData.get(position).getLocation().toString(),"город проведения в разработке"));
         holder.textViewPrice.setText(setPrice(rData.get(position).getPrice(), rData.get(position).getIsFree(), "Цену уточняйте"));

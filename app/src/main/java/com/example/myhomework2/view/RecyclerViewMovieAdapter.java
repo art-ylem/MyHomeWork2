@@ -10,8 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.myhomework2.movies.Movies;
-import com.example.myhomework2.movies.Result;
+import com.example.myhomework2.model.movies.Movies;
+import com.example.myhomework2.model.movies.Result;
 
 import io.reactivex.subjects.BehaviorSubject;
 

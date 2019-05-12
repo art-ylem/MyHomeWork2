@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.myhomework2.news.Result;
+import com.example.myhomework2.model.news.Result;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

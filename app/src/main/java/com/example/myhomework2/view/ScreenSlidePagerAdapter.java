@@ -4,7 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.example.myhomework2.events.Image;
+import com.example.myhomework2.model.events.Image;
+import com.example.myhomework2.view.FragmentScreenSlidePage;
 
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
 
-        return ScreenSlidePageFragment.newInstance(images.get(position).getImage());
+        return FragmentScreenSlidePage.newInstance(images.get(position).getImage());
     }
 
     @Override

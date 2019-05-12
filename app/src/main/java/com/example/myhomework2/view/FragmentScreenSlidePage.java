@@ -1,6 +1,7 @@
 package com.example.myhomework2;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,15 +19,22 @@ public ImageView imageView;
 
 public static ScreenSlidePageFragment newInstance(String str) {
     ScreenSlidePageFragment fragment = new ScreenSlidePageFragment();
-    url = str;
-//        !!!!!!поменять на бандл
+    Bundle args = new Bundle();
+    args.putString("str", str);
+    fragment.setArguments(args);
     return fragment;
 
 
 }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        url = getArguments().getString("str");
 
-@Override
+    }
+
+    @Override
 public View onCreateView(LayoutInflater inflater, ViewGroup container,
                          Bundle savedInstanceState) {
     ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_screen_slide_page, container, false);
