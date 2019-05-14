@@ -1,4 +1,4 @@
-package com.example.myhomework2;
+package com.example.myhomework2.presenter;
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 

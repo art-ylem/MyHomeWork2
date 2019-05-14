@@ -18,7 +18,7 @@ import io.reactivex.subjects.BehaviorSubject;
 
 public class RecyclerViewMovieAdapter extends RecyclerView.Adapter<RecyclerViewMovieAdapter.MyViewHolder> {
 
-    private Movies mDataset;
+    private Movies mDataSet;
     private Context context;
     private LayoutInflater mInflater;
 
@@ -27,7 +27,7 @@ public class RecyclerViewMovieAdapter extends RecyclerView.Adapter<RecyclerViewM
 
 
     public RecyclerViewMovieAdapter(Movies movies, Context context) {
-            this.mDataset = movies;
+            this.mDataSet = movies;
             this.context = context;
             this.mInflater = LayoutInflater.from(context);
         }
@@ -40,15 +40,15 @@ public class RecyclerViewMovieAdapter extends RecyclerView.Adapter<RecyclerViewM
 
         @Override
         public void onBindViewHolder(MyViewHolder holder, int position) {
-            holder.title.setText(mDataset.getResults().get(position).getTitle());
-            Glide.with(holder.movieImg.getContext()).load(mDataset.getResults().get(position).getPoster().getImage()).into(holder.movieImg);
-            holder.itemView.setOnClickListener(v -> itemClick.onNext(mDataset.getResults().get(position)));
+            holder.title.setText(mDataSet.getResults().get(position).getTitle());
+            Glide.with(holder.movieImg.getContext()).load(mDataSet.getResults().get(position).getPoster().getImage()).into(holder.movieImg);
+            holder.itemView.setOnClickListener(v -> itemClick.onNext(mDataSet.getResults().get(position)));
 
         }
 
         @Override
         public int getItemCount() {
-            return mDataset.getResults().size();
+            return mDataSet.getResults().size();
         }
 
     public BehaviorSubject<Result> getItemClick() {

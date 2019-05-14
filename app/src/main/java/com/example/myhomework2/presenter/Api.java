@@ -1,4 +1,4 @@
-package com.example.myhomework2;
+package com.example.myhomework2.presenter;
 
 
 import com.example.myhomework2.model.events.Events;

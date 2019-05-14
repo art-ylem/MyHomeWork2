@@ -6,14 +6,15 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.myhomework2.FragmentMoviePresenter;
 import com.example.myhomework2.R;
 import com.example.myhomework2.model.movies.Movies;
+import com.example.myhomework2.presenter.FragmentMoviePresenter;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -60,6 +61,7 @@ public class FragmentMovie extends Fragment implements FragmentMovieView{
     public void recycler(Movies movies) {
         recyclerViewMovieAdapter = new RecyclerViewMovieAdapter(movies, getContext());
         recyclerView.setAdapter(recyclerViewMovieAdapter);
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         Disposable disposable = recyclerViewMovieAdapter.getItemClick().subscribe(result -> openWebPage(result.getTrailer()));
         compositeDisposable.add(disposable);
     }

@@ -2,6 +2,7 @@ package com.example.myhomework2.view;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,9 +44,9 @@ public class RecycleViewNewsAdapter extends RecyclerView.Adapter<RecycleViewNews
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-//        holder.textData.setText(setDate(rData.get(position).getPublicationDate()));
-        holder.textViewDesc.setText(setTextString(rData.get(position).getDescription(),"Описание в разработке"));
-        holder.textViewTitle.setText(setTextString(rData.get(position).getTitle(), "Название в разработке"));
+        holder.textData.setText(setDate(rData.get(position).getPublicationDate()));
+        holder.textViewDesc.setText(stripHtml(setTextString(rData.get(position).getDescription(),"Описание в разработке")));
+        holder.textViewTitle.setText(stripHtml(setTextString(rData.get(position).getTitle(), "Название в разработке")));
 
         holder.itemView.setOnClickListener(v -> itemClick.onNext(rData.get(position)));
 
@@ -76,7 +77,10 @@ public class RecycleViewNewsAdapter extends RecyclerView.Adapter<RecycleViewNews
         return itemClick;
     }
 
-
+    public String stripHtml(String html)
+    {
+        return Html.fromHtml(html).toString();
+    }
 
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder {

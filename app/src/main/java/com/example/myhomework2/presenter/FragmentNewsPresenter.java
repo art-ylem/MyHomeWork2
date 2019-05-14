@@ -1,4 +1,4 @@
-package com.example.myhomework2;
+package com.example.myhomework2.presenter;
 
 import com.example.myhomework2.model.news.News;
 import com.example.myhomework2.view.FragmentNewsView;

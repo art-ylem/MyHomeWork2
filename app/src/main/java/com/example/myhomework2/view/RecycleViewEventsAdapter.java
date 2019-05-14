@@ -53,7 +53,7 @@ public class RecycleViewEventsAdapter extends RecyclerView.Adapter<RecycleViewEv
 
         }
 
-        holder.textViewLocation.setText(setTextString(rData.get(position).getLocation().toString(),"город проведения в разработке"));
+        holder.textViewLocation.setText(setTextString(rData.get(position).getLocation().getSlug().toString(),"город проведения в разработке"));
         holder.textViewPrice.setText(setPrice(rData.get(position).getPrice(), rData.get(position).getIsFree(), "Цену уточняйте"));
         holder.textAgeRestriction.setText(setAgeRestriction(rData.get(position).getAgeRestriction()));
 

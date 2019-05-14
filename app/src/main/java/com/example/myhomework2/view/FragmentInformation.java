@@ -12,12 +12,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.myhomework2.FragmentInformationPresenter;
+import com.example.myhomework2.model.events.Date;
+import com.example.myhomework2.presenter.FragmentInformationPresenter;
 import com.example.myhomework2.R;
 import com.example.myhomework2.model.postInformation.Dates;
 import com.example.myhomework2.model.postInformation.InfoPost;
 
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 public class FragmentInformation extends Fragment implements FragmentInformationView{
 
@@ -105,6 +107,24 @@ public class FragmentInformation extends Fragment implements FragmentInformation
         } else return elsee;
     }
 
+    public String setDataStart(int dataStart, List<Date> dates){
+        if(dataStart != 0 && dates != null) {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            long longDate = dataStart * 1000L;
+            java.util.Date date = new java.util.Date(longDate);
+            return dateFormat.format(date);
+        } else return "Дата начала еще не определена";
+    }
+
+    public String setDataEnd(int dataEnd, List<Date> dates){
+        if(dataEnd != 0 && dates != null) {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            long longDate = dataEnd * 1000L;
+            java.util.Date date = new java.util.Date(longDate);
+            return dateFormat.format(date);
+        } else return "Дата окончания еще не определена";
+    }
+
 
 
 
@@ -139,7 +159,7 @@ public class FragmentInformation extends Fragment implements FragmentInformation
         publicationDate.setText(setTextString("Опубликовано: " + infoPost.getPublication_date(),"Дата публикации"));
         textAge.setText(setAgeRestriction(infoPost.getAge_restriction()));
         likeText.setText(setTextString(infoPost.getFavorites_count(),"100"));
-//                            textData.setText(setDataStart(infoPost.getDates(),infoPost.getDates(),"Дата начала еще не определена"));???
+//        textData.setText(setDataStart(infoPost.getDates().getStart(),infoPost.getDates()));
         text_under_desc_text.setText(stripHtml(setTextString(infoPost.getBody_text(),"")));
     }
 

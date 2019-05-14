@@ -9,7 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.myhomework2.FragmentNewsPresenter;
+import com.example.myhomework2.presenter.FragmentNewsPresenter;
 import com.example.myhomework2.R;
 import com.example.myhomework2.model.news.News;
 

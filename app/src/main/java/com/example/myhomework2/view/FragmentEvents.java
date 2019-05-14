@@ -9,7 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.myhomework2.FragmentEventsPresenter;
+import com.example.myhomework2.presenter.FragmentEventsPresenter;
 import com.example.myhomework2.R;
 import com.example.myhomework2.model.events.Result;
 
