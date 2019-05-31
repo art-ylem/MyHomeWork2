@@ -107,8 +107,8 @@ public class FragmentInformation extends Fragment implements FragmentInformation
         } else return elsee;
     }
 
-    public String setDataStart(int dataStart, List<Date> dates){
-        if(dataStart != 0 && dates != null) {
+    public String setDataStart(int dataStart){
+        if(dataStart != 0) {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             long longDate = dataStart * 1000L;
             java.util.Date date = new java.util.Date(longDate);
@@ -159,7 +159,7 @@ public class FragmentInformation extends Fragment implements FragmentInformation
         publicationDate.setText(setTextString("Опубликовано: " + infoPost.getPublication_date(),"Дата публикации"));
         textAge.setText(setAgeRestriction(infoPost.getAge_restriction()));
         likeText.setText(setTextString(infoPost.getFavorites_count(),"100"));
-//        textData.setText(setDataStart(infoPost.getDates().getStart(),infoPost.getDates()));
+        textData.setText(setDataStart(Integer.parseInt(infoPost.getDates()[0].getStart())));
         text_under_desc_text.setText(stripHtml(setTextString(infoPost.getBody_text(),"")));
     }
 

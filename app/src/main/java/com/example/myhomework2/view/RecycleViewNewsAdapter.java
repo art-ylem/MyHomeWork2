@@ -61,7 +61,7 @@ public class RecycleViewNewsAdapter extends RecyclerView.Adapter<RecycleViewNews
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             long longDate = setDate * 1000L;
             java.util.Date date = new java.util.Date(longDate);
-            return dateFormat.format(date.toString());
+            return dateFormat.format(date);
         }
 
 
