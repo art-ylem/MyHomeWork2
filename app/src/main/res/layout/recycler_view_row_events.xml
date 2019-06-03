@@ -30,9 +30,10 @@
                 <!--android:layout_height="300dp" />-->
 
 
+
             <android.support.v4.view.ViewPager
                 card_view:layout_constraintTop_toTopOf="parent"
-                android:id="@+id/box_img"
+                android:id="@+id/box_img_event"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"/>
 
@@ -50,7 +51,7 @@
                 android:paddingStart="15dp"
                 android:textColor="@color/black"
                 android:background="@color/back_orange"
-                card_view:layout_constraintTop_toBottomOf="@id/box_img"
+                card_view:layout_constraintTop_toBottomOf="@id/box_img_event"
                 android:textStyle="bold"
                 />
 

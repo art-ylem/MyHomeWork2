@@ -1,7 +1,5 @@
 package com.example.myhomework2.view.Movie;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -55,11 +53,7 @@ public class FragmentMovie extends Fragment implements FragmentMovieView {
         return inflater.inflate(R.layout.movies_fragment,container,false);
     }
 
-    private void openWebPage(String url) {
-        Uri webpage = Uri.parse(url);
-        Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
-        startActivity(intent);
-    }
+
 
     @Override
     public void recycler(Movies movies) {

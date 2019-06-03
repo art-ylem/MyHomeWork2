@@ -1,18 +1,19 @@
-package com.example.myhomework2.view;
+package com.example.myhomework2.view.EventInformation;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.example.myhomework2.model.events.Image;
+import com.example.myhomework2.model.postInformation.Images;
+import com.example.myhomework2.view.FragmentScreenSlidePage;
 
 import java.util.List;
 
-public class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
+public class EventsInformationScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
 
-    List<Image> images;
+    List<Images> images;
 
-    public ScreenSlidePagerAdapter(FragmentManager fm, List<Image> images) {
+    public EventsInformationScreenSlidePagerAdapter(FragmentManager fm, List<Images> images) {
         super(fm);
         this.images = images;
     }

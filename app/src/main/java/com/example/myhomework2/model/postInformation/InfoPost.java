@@ -1,8 +1,10 @@
 package com.example.myhomework2.model.postInformation;
 
+import java.util.List;
+
 public class InfoPost {
 
-    private Images[] images;
+    private List<Images> images;
 
     private String body_text;
 
@@ -46,12 +48,12 @@ public class InfoPost {
 
     private String[] participants;
 
-    public Images[] getImages ()
+    public List<Images> getImages ()
     {
         return images;
     }
 
-    public void setImages (Images[] images)
+    public void setImages (List<Images> images)
     {
         this.images = images;
     }

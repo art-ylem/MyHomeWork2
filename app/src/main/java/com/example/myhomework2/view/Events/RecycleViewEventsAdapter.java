@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.example.myhomework2.R;
 import com.example.myhomework2.model.events.Result;
 import com.example.myhomework2.view.MainActivity;
-import com.example.myhomework2.view.ScreenSlidePagerAdapter;
 
 import java.util.ArrayList;
 
@@ -49,8 +48,8 @@ public class RecycleViewEventsAdapter extends RecyclerView.Adapter<RecycleViewEv
         if(context instanceof MainActivity){
             mainActivity = (MainActivity) context;
         }
-        ScreenSlidePagerAdapter screenSlidePagerAdapter = new ScreenSlidePagerAdapter(mainActivity.getSupportFragmentManager(),rData.get(position).getImages());
-        holder.mPager.setAdapter(screenSlidePagerAdapter);
+        EventsScreenSlidePagerAdapter eventsScreenSlidePagerAdapter = new EventsScreenSlidePagerAdapter(mainActivity.getSupportFragmentManager(),rData.get(position).getImages());
+        holder.mPager.setAdapter(eventsScreenSlidePagerAdapter);
         holder.textViewLocation.setText(setTextString(rData.get(position).getLocation().getSlug().toString(),"город проведения в разработке"));
         holder.textViewPrice.setText(setPrice(rData.get(position).getPrice(), rData.get(position).getIsFree(), "Цену уточняйте"));
         holder.textAgeRestriction.setText(setAgeRestriction(rData.get(position).getAgeRestriction()));
@@ -133,7 +132,7 @@ public class RecycleViewEventsAdapter extends RecyclerView.Adapter<RecycleViewEv
             textViewTitle = itemView.findViewById(R.id.text_under_img);
             textAgeRestriction = itemView.findViewById(R.id.age);
             textData = itemView.findViewById(R.id.date);
-            mPager = itemView.findViewById(R.id.box_img);
+            mPager = itemView.findViewById(R.id.box_img_event);
 
 //            frameLayout = itemView.findViewById(R.id.information_frag);
 

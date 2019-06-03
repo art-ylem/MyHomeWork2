@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,11 +13,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.myhomework2.model.events.Date;
-import com.example.myhomework2.presenter.FragmentInformationPresenter;
 import com.example.myhomework2.R;
+import com.example.myhomework2.model.events.Date;
 import com.example.myhomework2.model.postInformation.Dates;
 import com.example.myhomework2.model.postInformation.InfoPost;
+import com.example.myhomework2.presenter.FragmentInformationPresenter;
+import com.example.myhomework2.view.Events.FragmentEvents;
+import com.example.myhomework2.view.MainActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -24,6 +27,7 @@ import java.util.List;
 public class FragmentInformation extends Fragment implements FragmentInformationView{
 
     FragmentInformationPresenter fragmentInformationPresenter;
+    private MainActivity mainActivity;
 
     private OnFragmentInteractionListener mListener;
     private String id;
@@ -38,6 +42,7 @@ public class FragmentInformation extends Fragment implements FragmentInformation
     private TextView textAge;
     private TextView likeText;
     private TextView text_under_desc_text;
+    private ViewPager viewPager;
 
     public static FragmentInformation newInstance(String id) {
         FragmentInformation fragment = new FragmentInformation();
@@ -61,7 +66,7 @@ public class FragmentInformation extends Fragment implements FragmentInformation
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.information_fragment, container, false);
         textViewdesc = view.findViewById(R.id.description_text);
-        backBtn = view.findViewById(R.id.back_arrow_img);
+        backBtn = view.findViewById(R.id.back_arrow_img_event_information);
         textViewPrice = view.findViewById(R.id.textViewPrice);
         textViewLocation = view.findViewById(R.id.place);
         textViewTitle = view.findViewById(R.id.textViewTitle);
@@ -70,6 +75,7 @@ public class FragmentInformation extends Fragment implements FragmentInformation
         textAge = view.findViewById(R.id.textAge);
         likeText = view.findViewById(R.id.like_text);
         text_under_desc_text = view.findViewById(R.id.text_under_desc_text);
+        viewPager = view.findViewById(R.id.box_img_event_information);
 
         return view;
     }
@@ -77,9 +83,11 @@ public class FragmentInformation extends Fragment implements FragmentInformation
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        backBtn.setOnClickListener(v -> getActivity().onBackPressed());
         fragmentInformationPresenter = new FragmentInformationPresenter(this);
         fragmentInformationPresenter.loadData(id);
+        mainActivity = (MainActivity) getActivity();
+
+        backBtn.setOnClickListener(v -> mainActivity.frag(FragmentEvents.newInstance()));
     }
 
     public String setTextString(String title, String elsee){
@@ -161,6 +169,8 @@ public class FragmentInformation extends Fragment implements FragmentInformation
         likeText.setText(setTextString(infoPost.getFavorites_count(),"100"));
         textData.setText(setDataStart(Integer.parseInt(infoPost.getDates()[0].getStart())));
         text_under_desc_text.setText(stripHtml(setTextString(infoPost.getBody_text(),"")));
+        EventsInformationScreenSlidePagerAdapter screenSlidePagerAdapter = new EventsInformationScreenSlidePagerAdapter(mainActivity.getSupportFragmentManager(),infoPost.getImages());
+        viewPager.setAdapter(screenSlidePagerAdapter);
     }
 
     public interface OnFragmentInteractionListener {
