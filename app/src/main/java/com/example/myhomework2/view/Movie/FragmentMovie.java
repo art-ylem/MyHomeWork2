@@ -1,4 +1,4 @@
-package com.example.myhomework2.view;
+package com.example.myhomework2.view.Movie;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,13 +15,16 @@ import android.view.ViewGroup;
 import com.example.myhomework2.R;
 import com.example.myhomework2.model.movies.Movies;
 import com.example.myhomework2.presenter.FragmentMoviePresenter;
+import com.example.myhomework2.view.FilmInformation.FragmentFilmInformation;
+import com.example.myhomework2.view.MainActivity;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
 
-public class FragmentMovie extends Fragment implements FragmentMovieView{
+public class FragmentMovie extends Fragment implements FragmentMovieView {
 
+    private MainActivity mainActivity;
     RecyclerView recyclerView;
     RecyclerViewMovieAdapter recyclerViewMovieAdapter;
     FragmentMoviePresenter fragmentMoviePresenter;
@@ -38,6 +41,7 @@ public class FragmentMovie extends Fragment implements FragmentMovieView{
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        mainActivity = (MainActivity) getActivity();
 
         recyclerView = view.findViewById(R.id.recycler_view_movies_container);
         fragmentMoviePresenter = new FragmentMoviePresenter(this);
@@ -61,8 +65,8 @@ public class FragmentMovie extends Fragment implements FragmentMovieView{
     public void recycler(Movies movies) {
         recyclerViewMovieAdapter = new RecyclerViewMovieAdapter(movies, getContext());
         recyclerView.setAdapter(recyclerViewMovieAdapter);
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        Disposable disposable = recyclerViewMovieAdapter.getItemClick().subscribe(result -> openWebPage(result.getTrailer()));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        Disposable disposable = recyclerViewMovieAdapter.getItemClick().subscribe(result -> mainActivity.frag(FragmentFilmInformation.newInstance(result.getId().toString())));
         compositeDisposable.add(disposable);
     }
 

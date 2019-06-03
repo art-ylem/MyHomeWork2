@@ -1,4 +1,4 @@
-package com.example.myhomework2.view;
+package com.example.myhomework2.view.Events;
 
 import android.content.Context;
 import android.support.v4.view.ViewPager;
@@ -9,12 +9,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.myhomework2.R;
-import com.example.myhomework2.model.events.Date;
 import com.example.myhomework2.model.events.Result;
+import com.example.myhomework2.view.MainActivity;
+import com.example.myhomework2.view.ScreenSlidePagerAdapter;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.List;
 
 import io.reactivex.subjects.BehaviorSubject;
 
@@ -24,6 +23,7 @@ public class RecycleViewEventsAdapter extends RecyclerView.Adapter<RecycleViewEv
     private ArrayList<Result> rData;
     private LayoutInflater mInflater;
     private Context context;
+    private MainActivity mainActivity;
 
     BehaviorSubject<Result> itemClick = BehaviorSubject.create();
 
@@ -47,18 +47,16 @@ public class RecycleViewEventsAdapter extends RecyclerView.Adapter<RecycleViewEv
     public void onBindViewHolder(ViewHolder holder, int position) {
 
         if(context instanceof MainActivity){
-            MainActivity mainActivity = (MainActivity) context;
-            ScreenSlidePagerAdapter screenSlidePagerAdapter = new ScreenSlidePagerAdapter(mainActivity.getSupportFragmentManager(),rData.get(position).getImages());
-            holder.mPager.setAdapter(screenSlidePagerAdapter);
-
+            mainActivity = (MainActivity) context;
         }
-
+        ScreenSlidePagerAdapter screenSlidePagerAdapter = new ScreenSlidePagerAdapter(mainActivity.getSupportFragmentManager(),rData.get(position).getImages());
+        holder.mPager.setAdapter(screenSlidePagerAdapter);
         holder.textViewLocation.setText(setTextString(rData.get(position).getLocation().getSlug().toString(),"город проведения в разработке"));
         holder.textViewPrice.setText(setPrice(rData.get(position).getPrice(), rData.get(position).getIsFree(), "Цену уточняйте"));
         holder.textAgeRestriction.setText(setAgeRestriction(rData.get(position).getAgeRestriction()));
 
-        holder.textData.setText("С " + (setDataStart(rData.get(position).getDates().get(0).getStart(), rData.get(position).getDates()))
-                + " По " + setDataEnd(rData.get(position).getDates().get(0).getEnd(),rData.get(position).getDates()));
+//        holder.textData.setText("С " + (setDataStart(rData.get(position).getDates().get(0).getStart()))
+//                + " По " + setDataEnd(rData.get(position).getDates().get(0).getEnd()));
 
         holder.itemView.setOnClickListener(v -> itemClick.onNext(rData.get(position)));
         holder.textViewTitle.setText(setTextString(rData.get(position).getTitle(), "Название в разработке"));
@@ -83,23 +81,23 @@ public class RecycleViewEventsAdapter extends RecyclerView.Adapter<RecycleViewEv
         else return "0+";
     }
 
-    public String setDataStart(int dataStart, List<Date> dates){
-        if(dataStart != 0 && dates != null) {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            long longDate = dataStart * 1000L;
-            java.util.Date date = new java.util.Date(longDate);
-            return dateFormat.format(date);
-        } else return "Дата начала еще не определена";
-    }
-
-    public String setDataEnd(int dataEnd, List<Date> dates){
-        if(dataEnd != 0 && dates != null) {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            long longDate = dataEnd * 1000L;
-            java.util.Date date = new java.util.Date(longDate);
-            return dateFormat.format(date);
-        } else return "Дата окончания еще не определена";
-    }
+//    public String setDataStart(int dataStart){
+//        if(dataStart != 0) {
+//            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//            long longDate = dataStart * 1000L;
+//            java.util.Date date = new java.util.Date(longDate);
+//            return dateFormat.format(date);
+//        } else return "Дата начала еще не определена";
+//    }
+//
+//    public String setDataEnd(int dataEnd){
+//        if(dataEnd != 0) {
+//            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//            long longDate = dataEnd * 1000L;
+//            java.util.Date date = new java.util.Date(longDate);
+//            return dateFormat.format(date);
+//        } else return "Дата окончания еще не определена";
+//    }
 
 
     // total number of rows

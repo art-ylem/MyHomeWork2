@@ -1,4 +1,4 @@
-package com.example.myhomework2.view;
+package com.example.myhomework2.view.Events;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,6 +13,8 @@ import android.widget.Switch;
 import com.example.myhomework2.R;
 import com.example.myhomework2.model.events.Result;
 import com.example.myhomework2.presenter.FragmentEventsPresenter;
+import com.example.myhomework2.view.EventInformation.FragmentInformation;
+import com.example.myhomework2.view.MainActivity;
 
 import java.util.ArrayList;
 
@@ -70,7 +72,7 @@ public class FragmentEvents extends Fragment implements FragmentEventsView {
 //
 //            }
 //        });
-        Disposable disposable = recycleViewEventsAdapter.getItemClick().subscribe(results -> mainActivity.frag(FragmentInformation.newInstance(results.getId().toString())));
+        Disposable disposable = recycleViewEventsAdapter.getItemClick().subscribe(results -> mainActivity.frag(FragmentInformation.newInstance(String.valueOf(results.getId()))));
         compositeDisposable.add(disposable);
     }
 

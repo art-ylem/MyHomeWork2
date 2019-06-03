@@ -1,5 +1,4 @@
 package com.example.myhomework2.model.events;
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -9,7 +8,7 @@ public class Result {
 
     @SerializedName("id")
     @Expose
-    private Integer id;
+    private int id;
     @SerializedName("dates")
     @Expose
     private List<Date> dates = null;
@@ -18,7 +17,7 @@ public class Result {
     private String title;
     @SerializedName("place")
     @Expose
-    private Object place;
+    private Place place;
     @SerializedName("location")
     @Expose
     private Location location;
@@ -36,7 +35,7 @@ public class Result {
     private String price;
     @SerializedName("is_free")
     @Expose
-    private Boolean isFree;
+    private boolean isFree;
     @SerializedName("images")
     @Expose
     private List<Image> images = null;
@@ -47,11 +46,11 @@ public class Result {
     @Expose
     private String shortTitle;
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -71,11 +70,11 @@ public class Result {
         this.title = title;
     }
 
-    public Object getPlace() {
+    public Place getPlace() {
         return place;
     }
 
-    public void setPlace(Object place) {
+    public void setPlace(Place place) {
         this.place = place;
     }
 
@@ -119,11 +118,11 @@ public class Result {
         this.price = price;
     }
 
-    public Boolean getIsFree() {
+    public boolean getIsFree() {
         return isFree;
     }
 
-    public void setIsFree(Boolean isFree) {
+    public void setIsFree(boolean isFree) {
         this.isFree = isFree;
     }
 

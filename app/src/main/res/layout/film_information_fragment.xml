@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fillViewport="true">
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/recyclerCardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="10dp"
+        card_view:layout_constraintTop_toTopOf="parent"
+        card_view:cardBackgroundColor="@color/box_back"
+        card_view:cardCornerRadius="3dp"
+        card_view:cardElevation="5dp"
+        >
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"    >
+
+            <ImageView
+                card_view:layout_constraintTop_toTopOf="parent"
+                card_view:layout_constraintStart_toStartOf="parent"
+                android:id="@+id/back_arrow_img_movie_information"
+                android:src="@drawable/ic_back_arrow"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                />
+
+            <android.support.v4.view.ViewPager
+                card_view:layout_constraintTop_toBottomOf="@id/back_arrow_img_movie_information"
+                android:id="@+id/box_img_movie_information"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"/>
+            <TextView
+                android:id="@+id/movie_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:gravity="start"
+                android:paddingStart="20dp"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp"
+                android:text="Название фильма"
+                android:textColor="@color/black"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                card_view:layout_constraintHorizontal_bias="0.0"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintTop_toBottomOf="@id/box_img_movie_information"/>
+
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/recyclerCardView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        card_view:layout_constraintTop_toBottomOf="@+id/recyclerCardView"
+        card_view:cardBackgroundColor="@color/box_back"
+        android:layout_marginTop="15dp"
+        card_view:cardCornerRadius="3dp"
+        card_view:cardElevation="5dp"
+        card_view:cardUseCompatPadding="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        >
+
+       <android.support.constraint.ConstraintLayout
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content">
+
+           <ImageView
+               android:id="@+id/playImg"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:src="@drawable/ic_movie_black_24dp"
+               card_view:layout_constraintTop_toTopOf="parent"
+               card_view:layout_constraintBottom_toBottomOf="parent"
+               card_view:layout_constraintStart_toStartOf="parent"
+               card_view:layout_constraintEnd_toStartOf="@id/playTrailer"
+               android:layout_marginStart="15dp"/>
+
+           <TextView
+               android:id="@+id/playTrailer"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:fontFamily="sans-serif"
+               android:gravity="start"
+               android:paddingStart="20dp"
+               android:paddingTop="20dp"
+               android:paddingBottom="20dp"
+               android:text="Смотреть трейлер ->"
+               android:textColor="@color/black"
+               android:textSize="20sp"
+               android:textStyle="bold"
+               card_view:layout_constraintHorizontal_bias="0.0"
+               card_view:layout_constraintStart_toEndOf="@id/playImg"
+               card_view:layout_constraintTop_toTopOf="parent"
+               card_view:layout_constraintEnd_toEndOf="parent"
+               card_view:layout_constraintTop_toBottomOf="parent"/>
+
+       </android.support.constraint.ConstraintLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/recyclerCardView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        card_view:layout_constraintTop_toBottomOf="@id/recyclerCardView2"
+        card_view:cardBackgroundColor="@color/box_back"
+        card_view:cardCornerRadius="3dp"
+        card_view:cardElevation="5dp"
+        card_view:cardUseCompatPadding="true"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        >
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                card_view:layout_constraintTop_toTopOf="parent"
+                android:id="@+id/stars"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/stars"
+                android:textColor="@color/black"
+                android:fontFamily="sans-serif"
+                android:textSize="18sp"
+                android:paddingTop="15dp"
+                android:paddingBottom="5dp"
+                android:paddingStart="20dp"
+                android:textStyle="bold"
+                card_view:layout_constraintStart_toStartOf="parent"
+                />
+
+            <TextView
+                android:id="@+id/stars_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:paddingStart="10dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="10dp"
+                android:text="stars_text"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toBottomOf="@id/stars" />
+
+
+
+            <TextView
+                card_view:layout_constraintTop_toBottomOf="@id/stars_text"
+                android:id="@+id/desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/film_description"
+                android:textColor="@color/black"
+                android:fontFamily="sans-serif"
+                android:textSize="18sp"
+                android:paddingTop="15dp"
+                android:paddingBottom="5dp"
+                android:paddingStart="20dp"
+                android:textStyle="bold"
+                card_view:layout_constraintStart_toStartOf="parent"
+                />
+
+            <TextView
+                android:id="@+id/description_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:paddingStart="10dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="10dp"
+                android:text="description_text"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toBottomOf="@id/desc" />
+
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v7.widget.CardView>
+
+
+</android.support.constraint.ConstraintLayout>
+</ScrollView>

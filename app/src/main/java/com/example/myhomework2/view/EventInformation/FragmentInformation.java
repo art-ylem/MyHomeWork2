@@ -1,4 +1,4 @@
-package com.example.myhomework2.view;
+package com.example.myhomework2.view.EventInformation;
 
 import android.content.Context;
 import android.os.Bundle;

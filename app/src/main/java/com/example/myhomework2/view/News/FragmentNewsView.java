@@ -1,4 +1,4 @@
-package com.example.myhomework2.view;
+package com.example.myhomework2.view.News;
 
 import com.example.myhomework2.model.news.News;
 

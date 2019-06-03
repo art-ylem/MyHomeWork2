@@ -1,4 +1,4 @@
-package com.example.myhomework2.view;
+package com.example.myhomework2.view.Movie;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -43,7 +43,6 @@ public class RecyclerViewMovieAdapter extends RecyclerView.Adapter<RecyclerViewM
             holder.title.setText(mDataSet.getResults().get(position).getTitle());
             Glide.with(holder.movieImg.getContext()).load(mDataSet.getResults().get(position).getPoster().getImage()).into(holder.movieImg);
             holder.itemView.setOnClickListener(v -> itemClick.onNext(mDataSet.getResults().get(position)));
-
         }
 
         @Override

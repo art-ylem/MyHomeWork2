@@ -2,6 +2,7 @@ package com.example.myhomework2.presenter;
 
 
 import com.example.myhomework2.model.events.Events;
+import com.example.myhomework2.model.movieInformation.MovieInformation;
 import com.example.myhomework2.model.movies.Movies;
 import com.example.myhomework2.model.news.News;
 import com.example.myhomework2.model.postInformation.InfoPost;
@@ -24,5 +25,8 @@ public interface Api {
 
     @GET("public-api/v1.4/events/{alias}")
     Observable<InfoPost> getPostInformationById(@Path("alias") String alias);
+
+    @GET("public-api/v1.4/movies/{alias}")
+    Observable<MovieInformation> getMovieInformationById(@Path("alias") String alias, @Query("fields") String fields);
 
 }

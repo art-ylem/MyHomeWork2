@@ -1,4 +1,4 @@
-package com.example.myhomework2.view;
+package com.example.myhomework2.view.News;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

@@ -1,7 +1,7 @@
 package com.example.myhomework2.presenter;
 
 import com.example.myhomework2.model.postInformation.InfoPost;
-import com.example.myhomework2.view.FragmentInformationView;
+import com.example.myhomework2.view.EventInformation.FragmentInformationView;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;

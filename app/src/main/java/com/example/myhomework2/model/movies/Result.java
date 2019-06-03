@@ -7,6 +7,9 @@ import java.util.List;
 
 public class Result {
 
+    @SerializedName("id")
+    @Expose
+    private Integer id;
     @SerializedName("title")
     @Expose
     private String title;
@@ -19,6 +22,14 @@ public class Result {
     @SerializedName("poster")
     @Expose
     private Poster poster;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getTitle() {
         return title;

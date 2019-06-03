@@ -1,7 +1,7 @@
 package com.example.myhomework2.presenter;
 
 import com.example.myhomework2.useCase.EventsUseCase;
-import com.example.myhomework2.view.FragmentEventsView;
+import com.example.myhomework2.view.Events.FragmentEventsView;
 
 public class FragmentEventsPresenter {
 

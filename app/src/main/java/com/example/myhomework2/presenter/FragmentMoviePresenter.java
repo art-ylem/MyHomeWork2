@@ -1,7 +1,7 @@
 package com.example.myhomework2.presenter;
 
 import com.example.myhomework2.model.movies.Movies;
-import com.example.myhomework2.view.FragmentMovieView;
+import com.example.myhomework2.view.Movie.FragmentMovieView;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -9,7 +9,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class FragmentMoviePresenter {
 
-    public static final String FIELD = "trailer,title,images,poster";
+    public static final String FIELD = "trailer,title,images,poster,id";
     FragmentMovieView fragmentMovieView;
 
     public FragmentMoviePresenter(FragmentMovieView fragmentMovieView) {

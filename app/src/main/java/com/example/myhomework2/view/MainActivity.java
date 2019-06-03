@@ -7,8 +7,13 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.myhomework2.R;
+import com.example.myhomework2.view.EventInformation.FragmentInformation;
+import com.example.myhomework2.view.Events.FragmentEvents;
+import com.example.myhomework2.view.FilmInformation.FragmentFilmInformation;
+import com.example.myhomework2.view.Movie.FragmentMovie;
+import com.example.myhomework2.view.News.FragmentNews;
 
-public class MainActivity extends AppCompatActivity implements FragmentInformation.OnFragmentInteractionListener{
+public class MainActivity extends AppCompatActivity implements FragmentInformation.OnFragmentInteractionListener, FragmentFilmInformation.OnFragmentInteractionListener {
 
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;

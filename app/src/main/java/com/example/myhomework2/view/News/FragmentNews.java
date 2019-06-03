@@ -1,4 +1,4 @@
-package com.example.myhomework2.view;
+package com.example.myhomework2.view.News;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import com.example.myhomework2.presenter.FragmentNewsPresenter;
 import com.example.myhomework2.R;
 import com.example.myhomework2.model.news.News;
+import com.example.myhomework2.view.MainActivity;
 
 public class FragmentNews extends Fragment implements FragmentNewsView{
 

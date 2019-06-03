@@ -1,7 +1,7 @@
 package com.example.myhomework2.presenter;
 
 import com.example.myhomework2.model.news.News;
-import com.example.myhomework2.view.FragmentNewsView;
+import com.example.myhomework2.view.News.FragmentNewsView;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
