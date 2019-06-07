@@ -12,6 +12,7 @@ import com.example.myhomework2.view.Events.FragmentEvents;
 import com.example.myhomework2.view.FilmInformation.FragmentFilmInformation;
 import com.example.myhomework2.view.Movie.FragmentMovie;
 import com.example.myhomework2.view.News.FragmentNews;
+import com.example.myhomework2.view.map.FragmentMap;
 
 public class MainActivity extends AppCompatActivity implements FragmentInformation.OnFragmentInteractionListener, FragmentFilmInformation.OnFragmentInteractionListener {
 
@@ -44,6 +45,9 @@ public class MainActivity extends AppCompatActivity implements FragmentInformati
                 break;
                 case R.id.movie:
                     frag(FragmentMovie.newInstance());
+                    break;
+                case R.id.map:
+                    frag(FragmentMap.newInstance());
                     break;
                 default:
                     return true;

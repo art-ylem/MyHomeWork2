@@ -1,6 +1,7 @@
 package com.example.myhomework2.presenter;
 
 import com.example.myhomework2.model.news.News;
+import com.example.myhomework2.network.NetworkService;
 import com.example.myhomework2.view.News.FragmentNewsView;
 
 import io.reactivex.Observable;

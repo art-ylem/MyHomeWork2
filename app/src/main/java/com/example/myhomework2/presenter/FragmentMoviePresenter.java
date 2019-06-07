@@ -1,6 +1,7 @@
 package com.example.myhomework2.presenter;
 
 import com.example.myhomework2.model.movies.Movies;
+import com.example.myhomework2.network.NetworkService;
 import com.example.myhomework2.view.Movie.FragmentMovieView;
 
 import io.reactivex.Observable;

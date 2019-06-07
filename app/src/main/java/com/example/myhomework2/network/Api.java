@@ -1,4 +1,4 @@
-package com.example.myhomework2.presenter;
+package com.example.myhomework2.network;
 
 
 import com.example.myhomework2.model.events.Events;
@@ -18,7 +18,7 @@ public interface Api {
     Observable<Movies> getMovieName(@Query("fields") String fields);
 
     @GET("public-api/v1.4/events")
-    Observable<Events> getEvents(@Query("page_size") int pageSize, @Query("fields") String fields);
+    Observable<Events> getEvents(@Query("expand") String expand, @Query("fields") String fields);
 
     @GET("public-api/v1.4/events")
     Observable<News> getNews(@Query("page_size") int pageSize, @Query("fields") String fields);
