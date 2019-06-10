@@ -51,7 +51,7 @@ public class RecycleViewEventsAdapter extends RecyclerView.Adapter<RecycleViewEv
         EventsScreenSlidePagerAdapter eventsScreenSlidePagerAdapter = new EventsScreenSlidePagerAdapter(mainActivity.getSupportFragmentManager(),rData.get(position).getImages());
         holder.mPager.setAdapter(eventsScreenSlidePagerAdapter);
         holder.textViewLocation.setText(setTextString(rData.get(position).getLocation().getSlug().toString(),"город проведения в разработке"));
-        holder.textViewPrice.setText(setPrice(rData.get(position).getPrice(), rData.get(position).getIsFree(), "Цену уточняйте"));
+        holder.textViewPrice.setText(setPrice(rData.get(position).getPrice(), rData.get(position).isIsFree(), "Цену уточняйте"));
         holder.textAgeRestriction.setText(setAgeRestriction(rData.get(position).getAgeRestriction()));
 
 //        holder.textData.setText("С " + (setDataStart(rData.get(position).getDates().get(0).getStart()))

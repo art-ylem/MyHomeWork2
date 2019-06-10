@@ -9,7 +9,7 @@ public class Events {
 
     @SerializedName("count")
     @Expose
-    private Integer count;
+    private int count;
     @SerializedName("next")
     @Expose
     private String next;
@@ -20,11 +20,11 @@ public class Events {
     @Expose
     private ArrayList<Result> results = null;
 
-    public Integer getCount() {
+    public int getCount() {
         return count;
     }
 
-    public void setCount(Integer count) {
+    public void setCount(int count) {
         this.count = count;
     }
 

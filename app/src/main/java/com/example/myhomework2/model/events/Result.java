@@ -118,7 +118,7 @@ public class Result {
         this.price = price;
     }
 
-    public boolean getIsFree() {
+    public boolean isIsFree() {
         return isFree;
     }
 

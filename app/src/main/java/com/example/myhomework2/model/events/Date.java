@@ -1,16 +1,13 @@
 package com.example.myhomework2.model.events;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
 public class Date {
 
 //    @SerializedName("start")
 //    @Expose
 //    private int start;
-    @SerializedName("end")
-    @Expose
-    private int end;
+//    @SerializedName("end")
+//    @Expose
+//    private int end;
 //
 //    public int getStart() {
 //        return start;

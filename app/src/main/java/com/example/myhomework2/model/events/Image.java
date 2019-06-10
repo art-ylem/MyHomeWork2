@@ -1,6 +1,5 @@
 package com.example.myhomework2.model.events;
 
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -28,4 +27,5 @@ public class Image {
     public void setSource(Source source) {
         this.source = source;
     }
+
 }

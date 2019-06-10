@@ -2,12 +2,12 @@ package com.example.myhomework2.view.map;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.myhomework2.R;
+import com.example.myhomework2.model.events.Coords;
 import com.example.myhomework2.model.events.Events;
 import com.example.myhomework2.model.events.Result;
 import com.example.myhomework2.presenter.MapsPresenter;
@@ -17,7 +17,10 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.util.ArrayList;
 
 
 public class FragmentMap extends Fragment implements
@@ -26,6 +29,7 @@ public class FragmentMap extends Fragment implements
     private GoogleMap mMap;
     private MapsPresenter mapsPresenter = new MapsPresenter(this);
     private static final String ARG_PARAM1 = "param1";
+    public ArrayList<Coords> coords = new ArrayList<Coords>();
 
     private String mParam1;
 
@@ -59,12 +63,20 @@ public class FragmentMap extends Fragment implements
 
     @Override
     public void getEvents(Events data) {
+
         for(Result result : data.getResults()){
-            if(result.getPlace().getCoords() != null){
-//                Marker marker = mMap.addMarker(new MarkerOptions()
-//                        .position(new LatLng(result.getPlace().getCoords().getLat(), result.getPlace().getCoords().getLon())));
-//                        marker.setTag(result);
-                Log.d("TAG", "getEvents: " + result.getPlace().getCoords());
+            if(result.getPlace() != null && result.getPlace().getCoords() != null){
+                coords.add(result.getPlace().getCoords());
+                if(coords != null){
+                    for(Coords coord : coords){
+                        Marker marker =  mMap.addMarker(new MarkerOptions()
+                                .position(new LatLng(coord.getLat(),coord.getLon())));
+                        marker.setTag(result);
+                    }
+
+                }
+//                Log.d("TAG", "getEvents: " + result.getPlace().getCoords().getLon() + "___" + result.getPlace().getCoords().getLat());
+
             }
         }
     }
@@ -77,11 +89,11 @@ public class FragmentMap extends Fragment implements
         uiSettings.setZoomControlsEnabled(true);
 
         LatLng moscow = new LatLng(55.7558,37.6173);
-        mMap.addMarker(new MarkerOptions().position(moscow).title("Marker in Moscow"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(moscow,10f));
-
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(moscow,10f));
         mapsPresenter.loadData();
+
     }
+
 
     @Override
     public void onDestroy() {
