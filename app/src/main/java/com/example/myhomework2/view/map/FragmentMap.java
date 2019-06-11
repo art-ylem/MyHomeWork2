@@ -1,7 +1,6 @@
 package com.example.myhomework2.view.map;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +10,9 @@ import com.example.myhomework2.model.events.Coords;
 import com.example.myhomework2.model.events.Events;
 import com.example.myhomework2.model.events.Result;
 import com.example.myhomework2.presenter.MapsPresenter;
+import com.example.myhomework2.view.BaseFragment;
+import com.example.myhomework2.view.EventInformation.FragmentInformation;
+import com.example.myhomework2.view.MainActivity;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -23,13 +25,14 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.ArrayList;
 
 
-public class FragmentMap extends Fragment implements
+public class FragmentMap extends BaseFragment implements
         MapsView, OnMapReadyCallback {
 
     private GoogleMap mMap;
     private MapsPresenter mapsPresenter = new MapsPresenter(this);
     private static final String ARG_PARAM1 = "param1";
     public ArrayList<Coords> coords = new ArrayList<Coords>();
+    private MainActivity mainActivity;
 
     private String mParam1;
 
@@ -54,7 +57,10 @@ public class FragmentMap extends Fragment implements
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        mainActivity = (MainActivity) getActivity();
         View view = inflater.inflate(R.layout.fragment_fragment_map, container, false);
+
+        updateActivityTitle("Карта");
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
@@ -71,14 +77,16 @@ public class FragmentMap extends Fragment implements
                     for(Coords coord : coords){
                         Marker marker =  mMap.addMarker(new MarkerOptions()
                                 .position(new LatLng(coord.getLat(),coord.getLon())));
-                        marker.setTag(result);
+                        marker.setTag(result.getId());
                     }
-
                 }
-//                Log.d("TAG", "getEvents: " + result.getPlace().getCoords().getLon() + "___" + result.getPlace().getCoords().getLat());
-
             }
         }
+        mMap.setOnMarkerClickListener(marker -> {
+
+        mainActivity.launchFragWitchBackStack(FragmentInformation.newInstance(String.valueOf(marker.getTag())));
+            return false;
+        });
     }
 
     @Override
@@ -89,9 +97,8 @@ public class FragmentMap extends Fragment implements
         uiSettings.setZoomControlsEnabled(true);
 
         LatLng moscow = new LatLng(55.7558,37.6173);
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(moscow,10f));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(moscow,10f));
         mapsPresenter.loadData();
-
     }
 
 

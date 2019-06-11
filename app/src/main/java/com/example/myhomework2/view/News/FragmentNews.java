@@ -3,18 +3,18 @@ package com.example.myhomework2.view.News;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.myhomework2.presenter.FragmentNewsPresenter;
 import com.example.myhomework2.R;
 import com.example.myhomework2.model.news.News;
+import com.example.myhomework2.presenter.FragmentNewsPresenter;
+import com.example.myhomework2.view.BaseFragment;
 import com.example.myhomework2.view.MainActivity;
 
-public class FragmentNews extends Fragment implements FragmentNewsView{
+public class FragmentNews extends BaseFragment implements FragmentNewsView{
 
 
     private RecycleViewNewsAdapter recycleViewNewsAdapter;
@@ -44,6 +44,7 @@ public class FragmentNews extends Fragment implements FragmentNewsView{
         recyclerView = view.findViewById(R.id.container_recycler_view_news);
         fragmentNewsPresenter = new FragmentNewsPresenter(this);
         fragmentNewsPresenter.loadData();
+        updateActivityTitle("Новости");
 
 
 

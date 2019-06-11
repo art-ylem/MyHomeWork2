@@ -6,7 +6,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.CardView;
 import android.text.Html;
@@ -19,10 +18,10 @@ import android.widget.TextView;
 import com.example.myhomework2.R;
 import com.example.myhomework2.model.movieInformation.MovieInformation;
 import com.example.myhomework2.presenter.FragmentFilmInformationPresenter;
+import com.example.myhomework2.view.BaseFragment;
 import com.example.myhomework2.view.MainActivity;
-import com.example.myhomework2.view.Movie.FragmentMovie;
 
-public class FragmentFilmInformation extends Fragment implements FragmentFilmInformationView{
+public class FragmentFilmInformation extends BaseFragment implements FragmentFilmInformationView{
 
     FragmentFilmInformationPresenter fragmentFilmInformationPresenter;
     private MainActivity mainActivity;
@@ -30,12 +29,14 @@ public class FragmentFilmInformation extends Fragment implements FragmentFilmInf
     private OnFragmentInteractionListener mListener;
     private String id;
     private TextView starsText;
-    private ImageView backBtn;
     private TextView descText;
     private TextView movieTitle;
+    private TextView viewPagerIndicator;
     private CardView playCardView;
     private Context context;
     private ViewPager imgPager;
+    private ImageView backBtn;
+
 
 
 
@@ -60,12 +61,15 @@ public class FragmentFilmInformation extends Fragment implements FragmentFilmInf
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.film_information_fragment, container, false);
+
         descText = view.findViewById(R.id.description_text);
         starsText = view.findViewById(R.id.stars_text);
         movieTitle = view.findViewById(R.id.movie_title);
         playCardView = view.findViewById(R.id.recyclerCardView2);
-        backBtn = view.findViewById(R.id.back_arrow_img_movie_information);
         imgPager = view.findViewById(R.id.box_img_movie_information);
+        viewPagerIndicator = view.findViewById(R.id.movie_view_pager_indicator);
+        backBtn = view.findViewById(R.id.back_btn_film);
+
         return view;
     }
 
@@ -74,7 +78,12 @@ public class FragmentFilmInformation extends Fragment implements FragmentFilmInf
         super.onViewCreated(view, savedInstanceState);
         mainActivity = (MainActivity) getActivity();
 
-        backBtn.setOnClickListener(v -> mainActivity.frag(FragmentMovie.newInstance()));
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mainActivity.onBackPressed();
+            }
+        });
 
         fragmentFilmInformationPresenter = new FragmentFilmInformationPresenter(this);
         fragmentFilmInformationPresenter.loadData(id);
@@ -130,8 +139,32 @@ public class FragmentFilmInformation extends Fragment implements FragmentFilmInf
         super.onDestroyView();
     }
 
+    private void initImagesGallery(MovieInformation movieInformation){
+        if (movieInformation.getImages() != null) {
+            viewPagerIndicator.setText(1 + "/" + movieInformation.getImages().size());
+            FilmInformationScreenSlidePagerAdapter filmInformationScreenSlidePagerAdapter = new FilmInformationScreenSlidePagerAdapter(mainActivity.getSupportFragmentManager(),movieInformation.getImages());
+            imgPager.setAdapter(filmInformationScreenSlidePagerAdapter);
+            imgPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                @Override
+                public void onPageScrolled(int i, float v, int i1) {}
+
+                @Override
+                public void onPageSelected(int i) {
+                    //Во время перелистывания картинок, мы должны менять номер картинки в нижнем правом углу
+                    viewPagerIndicator.setText((i + 1) + "/" + movieInformation.getImages().size());
+                }
+
+                @Override
+                public void onPageScrollStateChanged(int i) {}
+            });
+        }
+    }
+
     @Override
     public void informationMethod(MovieInformation movieInformation) {
+        initImagesGallery(movieInformation);
+        updateDisplay(true);
+        updateActivityTitle(movieInformation.getTitle());
         starsText.setText(setTextString(movieInformation.getStars(), " "));
         descText.setText(stripHtml(setTextString(movieInformation.getBodyText(), " ")));
         movieTitle.setText(setTextString(movieInformation.getTitle() + "  " + setAgeRestriction(movieInformation.getAgeRestriction()), " "));

@@ -28,20 +28,35 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"    >
 
-            <ImageView
-                card_view:layout_constraintTop_toTopOf="parent"
-                card_view:layout_constraintStart_toStartOf="parent"
-                android:id="@+id/back_arrow_img_movie_information"
-                android:src="@drawable/ic_back_arrow"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                />
 
             <android.support.v4.view.ViewPager
-                card_view:layout_constraintTop_toBottomOf="@id/back_arrow_img_movie_information"
+                card_view:layout_constraintTop_toTopOf="parent"
                 android:id="@+id/box_img_movie_information"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"/>
+
+            <ImageView
+                android:id="@+id/back_btn_film"
+                card_view:layout_constraintTop_toTopOf="parent"
+                card_view:layout_constraintStart_toStartOf="parent"
+                android:layout_width="70dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_arrow_back_black_24dp"/>
+
+            <TextView
+                android:id="@+id/movie_view_pager_indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:paddingStart="2dp"
+                android:paddingEnd="2dp"
+                android:text="1/2"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toTopOf="@id/movie_title"
+                app:layout_constraintEnd_toEndOf="parent" />
+
             <TextView
                 android:id="@+id/movie_title"
                 android:layout_width="0dp"

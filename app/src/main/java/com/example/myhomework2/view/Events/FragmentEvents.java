@@ -3,7 +3,6 @@ package com.example.myhomework2.view.Events;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +12,7 @@ import android.widget.Switch;
 import com.example.myhomework2.R;
 import com.example.myhomework2.model.events.Result;
 import com.example.myhomework2.presenter.FragmentEventsPresenter;
+import com.example.myhomework2.view.BaseFragment;
 import com.example.myhomework2.view.EventInformation.FragmentInformation;
 import com.example.myhomework2.view.MainActivity;
 
@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
-public class FragmentEvents extends Fragment implements FragmentEventsView {
+public class FragmentEvents extends BaseFragment implements FragmentEventsView {
 
 
     private RecycleViewEventsAdapter recycleViewEventsAdapter;
@@ -54,8 +54,8 @@ public class FragmentEvents extends Fragment implements FragmentEventsView {
         mainActivity = (MainActivity) getActivity();
         fragmentEventsPresenter = new FragmentEventsPresenter(this);
         fragmentEventsPresenter.loadData();
-//        aSwitch = view.findViewById(R.id.switch_grid_liner);
 
+        updateActivityTitle("События");
 
 
     }
@@ -72,7 +72,7 @@ public class FragmentEvents extends Fragment implements FragmentEventsView {
 //
 //            }
 //        });
-        Disposable disposable = recycleViewEventsAdapter.getItemClick().subscribe(results -> mainActivity.frag(FragmentInformation.newInstance(String.valueOf(results.getId()))));
+        Disposable disposable = recycleViewEventsAdapter.getItemClick().subscribe(results -> mainActivity.launchFragWitchBackStack(FragmentInformation.newInstance(String.valueOf(results.getId()))));
         compositeDisposable.add(disposable);
     }
 

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -18,13 +17,13 @@ import com.example.myhomework2.model.events.Date;
 import com.example.myhomework2.model.postInformation.Dates;
 import com.example.myhomework2.model.postInformation.InfoPost;
 import com.example.myhomework2.presenter.FragmentInformationPresenter;
-import com.example.myhomework2.view.Events.FragmentEvents;
+import com.example.myhomework2.view.BaseFragment;
 import com.example.myhomework2.view.MainActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-public class FragmentInformation extends Fragment implements FragmentInformationView{
+public class FragmentInformation extends BaseFragment implements FragmentInformationView{
 
     FragmentInformationPresenter fragmentInformationPresenter;
     private MainActivity mainActivity;
@@ -32,17 +31,17 @@ public class FragmentInformation extends Fragment implements FragmentInformation
     private OnFragmentInteractionListener mListener;
     private String id;
     private TextView textViewdesc;
-    private ImageView backBtn;
     private TextView textViewPrice;
     private TextView textViewLocation;
     private TextView textViewTitle;
+    private ImageView backBtn;
 
     private TextView textData;
-    private TextView publicationDate;
     private TextView textAge;
     private TextView likeText;
     private TextView text_under_desc_text;
     private ViewPager viewPager;
+    private TextView viewPagerIndicator;
 
     public static FragmentInformation newInstance(String id) {
         FragmentInformation fragment = new FragmentInformation();
@@ -66,17 +65,16 @@ public class FragmentInformation extends Fragment implements FragmentInformation
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.information_fragment, container, false);
         textViewdesc = view.findViewById(R.id.description_text);
-        backBtn = view.findViewById(R.id.back_arrow_img_event_information);
         textViewPrice = view.findViewById(R.id.textViewPrice);
         textViewLocation = view.findViewById(R.id.place);
         textViewTitle = view.findViewById(R.id.textViewTitle);
         textData = view.findViewById(R.id.textData);
-        publicationDate = view.findViewById(R.id.publicationDate);
         textAge = view.findViewById(R.id.textAge);
         likeText = view.findViewById(R.id.like_text);
         text_under_desc_text = view.findViewById(R.id.text_under_desc_text);
         viewPager = view.findViewById(R.id.box_img_event_information);
-
+        viewPagerIndicator = view.findViewById(R.id.view_pager_indicator);
+        backBtn = view.findViewById(R.id.back_btn_event);
         return view;
     }
 
@@ -87,7 +85,7 @@ public class FragmentInformation extends Fragment implements FragmentInformation
         fragmentInformationPresenter.loadData(id);
         mainActivity = (MainActivity) getActivity();
 
-        backBtn.setOnClickListener(v -> mainActivity.frag(FragmentEvents.newInstance()));
+        backBtn.setOnClickListener(v -> mainActivity.onBackPressed());
     }
 
     public String setTextString(String title, String elsee){
@@ -133,6 +131,37 @@ public class FragmentInformation extends Fragment implements FragmentInformation
         } else return "Дата окончания еще не определена";
     }
 
+    public String cityName(String slug){
+        switch (slug){
+            case "ekb":
+                return "Екатеринбург";
+            case "krasnoyarsk":
+                return "Красноярск";
+            case "krd":
+                return "Краснодар";
+            case "kzn":
+                return "Казань";
+            case "msk":
+                return "Москва";
+            case "nnv":
+                return "Нижний Новгород";
+            case "nsk":
+                return "Новосибирск";
+            case "smr":
+                return "Самара";
+            case "sochi":
+                return "Сочи";
+            case "spb":
+                return "Санкт-Петербург";
+            case "ufa":
+                return "Уфа";
+            case "vbg":
+                return "Выборг";
+            default:
+                return "Город";
+        }
+    }
+
 
 
 
@@ -158,20 +187,42 @@ public class FragmentInformation extends Fragment implements FragmentInformation
         super.onDestroyView();
     }
 
+    private void initImagesGallery(InfoPost infoPost){
+        if (infoPost.getImages() != null) {
+            viewPagerIndicator.setText(1 + "/" + infoPost.getImages().size());
+            EventsInformationScreenSlidePagerAdapter screenSlidePagerAdapter = new EventsInformationScreenSlidePagerAdapter(mainActivity.getSupportFragmentManager(),infoPost.getImages());
+            viewPager.setAdapter(screenSlidePagerAdapter);
+            viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                @Override
+                public void onPageScrolled(int i, float v, int i1) {}
+
+                @Override
+                public void onPageSelected(int i) {
+                    //Во время перелистывания картинок, мы должны менять номер картинки в нижнем правом углу
+                    viewPagerIndicator.setText((i + 1) + "/" + infoPost.getImages().size());
+                }
+
+                @Override
+                public void onPageScrollStateChanged(int i) {}
+            });
+        }
+    }
+
     @Override
     public void informationMethod(InfoPost infoPost) {
         textViewdesc.setText(stripHtml(setTextString(infoPost.getDescription(), "Полное описание отсутствует")));
         textViewTitle.setText(setTextString(infoPost.getTitle(),"Название в разработке"));
-        textViewLocation.setText(setTextString(infoPost.getLocation().getSlug(), "город проведения в разработке"));
+        textViewLocation.setText(setTextString(cityName(infoPost.getLocation().getSlug()), "город проведения в разработке"));
         textViewPrice.setText(setPrice(infoPost.getPrice(), infoPost.getIs_free(),"Цена неee определена" ));
-        publicationDate.setText(setTextString("Опубликовано: " + infoPost.getPublication_date(),"Дата публикации"));
         textAge.setText(setAgeRestriction(infoPost.getAge_restriction()));
         likeText.setText(setTextString(infoPost.getFavorites_count(),"100"));
         textData.setText(setDataStart(Integer.parseInt(infoPost.getDates()[0].getStart())));
         text_under_desc_text.setText(stripHtml(setTextString(infoPost.getBody_text(),"")));
-        EventsInformationScreenSlidePagerAdapter screenSlidePagerAdapter = new EventsInformationScreenSlidePagerAdapter(mainActivity.getSupportFragmentManager(),infoPost.getImages());
-        viewPager.setAdapter(screenSlidePagerAdapter);
+        initImagesGallery(infoPost);
+
+        updateActivityTitle(infoPost.getTitle());
     }
+
 
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name

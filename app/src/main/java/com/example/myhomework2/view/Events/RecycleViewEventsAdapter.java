@@ -1,17 +1,19 @@
 package com.example.myhomework2.view.Events;
 
 import android.content.Context;
-import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.myhomework2.R;
 import com.example.myhomework2.model.events.Result;
 import com.example.myhomework2.view.MainActivity;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import io.reactivex.subjects.BehaviorSubject;
@@ -48,14 +50,13 @@ public class RecycleViewEventsAdapter extends RecyclerView.Adapter<RecycleViewEv
         if(context instanceof MainActivity){
             mainActivity = (MainActivity) context;
         }
-        EventsScreenSlidePagerAdapter eventsScreenSlidePagerAdapter = new EventsScreenSlidePagerAdapter(mainActivity.getSupportFragmentManager(),rData.get(position).getImages());
-        holder.mPager.setAdapter(eventsScreenSlidePagerAdapter);
-        holder.textViewLocation.setText(setTextString(rData.get(position).getLocation().getSlug().toString(),"город проведения в разработке"));
+        Glide.with(holder.mPager.getContext()).load(rData.get(position).getImages().get(0).getImage()).into(holder.mPager);
+        holder.textViewLocation.setText(setTextString(cityName(rData.get(position).getLocation().getSlug()),"город проведения в разработке"));
         holder.textViewPrice.setText(setPrice(rData.get(position).getPrice(), rData.get(position).isIsFree(), "Цену уточняйте"));
         holder.textAgeRestriction.setText(setAgeRestriction(rData.get(position).getAgeRestriction()));
 
-//        holder.textData.setText("С " + (setDataStart(rData.get(position).getDates().get(0).getStart()))
-//                + " По " + setDataEnd(rData.get(position).getDates().get(0).getEnd()));
+        holder.textData.setText("С " + (setDataStart(rData.get(position).getDates().get(0).getStart()))
+                + "   по " + setDataStart(rData.get(position).getDates().get(0).getEnd()));
 
         holder.itemView.setOnClickListener(v -> itemClick.onNext(rData.get(position)));
         holder.textViewTitle.setText(setTextString(rData.get(position).getTitle(), "Название в разработке"));
@@ -65,6 +66,36 @@ public class RecycleViewEventsAdapter extends RecyclerView.Adapter<RecycleViewEv
     public String setTextString(String txt, String elseStr){
         if(txt != null && txt != "" && txt != " ") return txt;
         else return elseStr;
+    }
+    public String cityName(String slug){
+        switch (slug){
+            case "ekb":
+                return "Екатеринбург";
+            case "krasnoyarsk":
+                return "Красноярск";
+            case "krd":
+                return "Краснодар";
+            case "kzn":
+                return "Казань";
+            case "msk":
+                return "Москва";
+            case "nnv":
+                return "Нижний Новгород";
+            case "nsk":
+                return "Новосибирск";
+            case "smr":
+                return "Самара";
+            case "sochi":
+                return "Сочи";
+            case "spb":
+                return "Санкт-Петербург";
+            case "ufa":
+                return "Уфа";
+            case "vbg":
+                return "Выборг";
+            default:
+                return "Город";
+        }
     }
 
     public String setPrice(String price, Boolean free, String elsee){
@@ -80,26 +111,14 @@ public class RecycleViewEventsAdapter extends RecyclerView.Adapter<RecycleViewEv
         else return "0+";
     }
 
-//    public String setDataStart(int dataStart){
-//        if(dataStart != 0) {
-//            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-//            long longDate = dataStart * 1000L;
-//            java.util.Date date = new java.util.Date(longDate);
-//            return dateFormat.format(date);
-//        } else return "Дата начала еще не определена";
-//    }
-//
-//    public String setDataEnd(int dataEnd){
-//        if(dataEnd != 0) {
-//            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-//            long longDate = dataEnd * 1000L;
-//            java.util.Date date = new java.util.Date(longDate);
-//            return dateFormat.format(date);
-//        } else return "Дата окончания еще не определена";
-//    }
-
-
-    // total number of rows
+    public String setDataStart(int dataStart){
+        if(dataStart != 0) {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
+            long longDate = dataStart * 1000L;
+            java.util.Date date = new java.util.Date(longDate);
+            return dateFormat.format(date);
+        } else return "Дата начала еще не определена";
+    }
     @Override
     public int getItemCount() {
         return rData.size();
@@ -119,7 +138,7 @@ public class RecycleViewEventsAdapter extends RecyclerView.Adapter<RecycleViewEv
         private TextView textViewTitle;
         private TextView textAgeRestriction;
         private TextView textData;
-        private ViewPager mPager;
+        private ImageView mPager;
 
 
 //        private FrameLayout frameLayout;
@@ -133,7 +152,6 @@ public class RecycleViewEventsAdapter extends RecyclerView.Adapter<RecycleViewEv
             textAgeRestriction = itemView.findViewById(R.id.age);
             textData = itemView.findViewById(R.id.date);
             mPager = itemView.findViewById(R.id.box_img_event);
-
 //            frameLayout = itemView.findViewById(R.id.information_frag);
 
         }

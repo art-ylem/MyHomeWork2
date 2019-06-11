@@ -3,7 +3,6 @@ package com.example.myhomework2.view.Movie;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,6 +12,7 @@ import android.view.ViewGroup;
 import com.example.myhomework2.R;
 import com.example.myhomework2.model.movies.Movies;
 import com.example.myhomework2.presenter.FragmentMoviePresenter;
+import com.example.myhomework2.view.BaseFragment;
 import com.example.myhomework2.view.FilmInformation.FragmentFilmInformation;
 import com.example.myhomework2.view.MainActivity;
 
@@ -20,7 +20,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
 
-public class FragmentMovie extends Fragment implements FragmentMovieView {
+public class FragmentMovie extends BaseFragment implements FragmentMovieView {
 
     private MainActivity mainActivity;
     RecyclerView recyclerView;
@@ -45,7 +45,7 @@ public class FragmentMovie extends Fragment implements FragmentMovieView {
         fragmentMoviePresenter = new FragmentMoviePresenter(this);
         fragmentMoviePresenter.loadData();
 
-
+        updateActivityTitle("Фильмы");
     }
 
     @Override
@@ -60,7 +60,7 @@ public class FragmentMovie extends Fragment implements FragmentMovieView {
         recyclerViewMovieAdapter = new RecyclerViewMovieAdapter(movies, getContext());
         recyclerView.setAdapter(recyclerViewMovieAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        Disposable disposable = recyclerViewMovieAdapter.getItemClick().subscribe(result -> mainActivity.frag(FragmentFilmInformation.newInstance(result.getId().toString())));
+        Disposable disposable = recyclerViewMovieAdapter.getItemClick().subscribe(result -> mainActivity.launchFragWitchBackStack(FragmentFilmInformation.newInstance(result.getId().toString())));
         compositeDisposable.add(disposable);
     }
 
