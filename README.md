@@ -11,4 +11,4 @@
   - Dagger 2
   - Glid
   
-В приложении есть 5 соновных окон: ![alt text](screenshots/снимок1.png)​
+В приложении есть 5 соновных окон: ![alt text](screenshots/Снимок1.JPG)​
