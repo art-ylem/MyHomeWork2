@@ -15,7 +15,7 @@
         card_view:layout_constraintTop_toTopOf="parent"
         card_view:cardBackgroundColor="@color/box_back"
         card_view:cardCornerRadius="3dp"
-        card_view:cardElevation="5dp"
+        card_view:cardElevation="10dp"
         card_view:cardUseCompatPadding="true"
         >
 
@@ -35,6 +35,7 @@
             <ImageView
                 card_view:layout_constraintTop_toTopOf="parent"
                 android:id="@+id/box_img_event"
+                android:scaleType="centerCrop"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"/>
 

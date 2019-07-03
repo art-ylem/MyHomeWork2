@@ -96,8 +96,8 @@ public class FragmentMap extends BaseFragment implements
         UiSettings uiSettings = mMap.getUiSettings();
         uiSettings.setZoomControlsEnabled(true);
 
-        LatLng moscow = new LatLng(55.7558,37.6173);
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(moscow,10f));
+        LatLng moscow = new LatLng(59.9342802,30.3350986);
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(moscow,5f));
         mapsPresenter.loadData();
     }
 

@@ -50,9 +50,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         UiSettings uiSettings = mMap.getUiSettings();
         uiSettings.setZoomControlsEnabled(true);
 
-        LatLng moscow = new LatLng(55.7558,37.6173);
+        LatLng moscow = new LatLng(59.9342802,30.3350986);
         mMap.addMarker(new MarkerOptions().position(moscow).title("Marker in Moscow"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(moscow,10f));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(moscow,5f));
 
         mapsPresenter.loadData();
 

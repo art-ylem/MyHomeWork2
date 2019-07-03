@@ -9,7 +9,6 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.myhomework2.R;
@@ -34,7 +33,6 @@ public class FragmentInformation extends BaseFragment implements FragmentInforma
     private TextView textViewPrice;
     private TextView textViewLocation;
     private TextView textViewTitle;
-    private ImageView backBtn;
 
     private TextView textData;
     private TextView textAge;
@@ -74,7 +72,6 @@ public class FragmentInformation extends BaseFragment implements FragmentInforma
         text_under_desc_text = view.findViewById(R.id.text_under_desc_text);
         viewPager = view.findViewById(R.id.box_img_event_information);
         viewPagerIndicator = view.findViewById(R.id.view_pager_indicator);
-        backBtn = view.findViewById(R.id.back_btn_event);
         return view;
     }
 
@@ -85,7 +82,6 @@ public class FragmentInformation extends BaseFragment implements FragmentInforma
         fragmentInformationPresenter.loadData(id);
         mainActivity = (MainActivity) getActivity();
 
-        backBtn.setOnClickListener(v -> mainActivity.onBackPressed());
     }
 
     public String setTextString(String title, String elsee){

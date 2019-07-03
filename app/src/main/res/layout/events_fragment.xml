@@ -14,12 +14,16 @@
         <!--android:layout_marginStart="20dp"-->
         <!--android:layout_marginTop="20dp"/>-->
 
-
+<ImageView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scaleType="centerCrop"/>
     <android.support.v7.widget.RecyclerView
         app:layout_constraintTop_toTopOf="parent"
         android:id="@+id/container_recycler_view_events"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
         app:layoutManager="android.support.v7.widget.LinearLayoutManager">
     </android.support.v7.widget.RecyclerView>
 

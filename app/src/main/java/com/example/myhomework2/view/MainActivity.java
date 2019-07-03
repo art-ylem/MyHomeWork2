@@ -34,7 +34,7 @@ public class MainActivity extends BaseActivity implements FragmentInformation.On
         selectItem();
         setupDrawerIcon();
 
-        launchFrag(FragmentNews.newInstance());
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, FragmentNews.newInstance()).commit();
     }
 
 
@@ -90,7 +90,7 @@ public class MainActivity extends BaseActivity implements FragmentInformation.On
 //        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 //        fragmentTransaction.replace(R.id.fragment_container, fragment);
 //        fragmentTransaction.commit();
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).addToBackStack(null).commit();
 
     }
     public void launchFragWitchBackStack(Fragment fragment){

@@ -12,7 +12,6 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.myhomework2.R;
@@ -35,7 +34,6 @@ public class FragmentFilmInformation extends BaseFragment implements FragmentFil
     private CardView playCardView;
     private Context context;
     private ViewPager imgPager;
-    private ImageView backBtn;
 
 
 
@@ -68,7 +66,6 @@ public class FragmentFilmInformation extends BaseFragment implements FragmentFil
         playCardView = view.findViewById(R.id.recyclerCardView2);
         imgPager = view.findViewById(R.id.box_img_movie_information);
         viewPagerIndicator = view.findViewById(R.id.movie_view_pager_indicator);
-        backBtn = view.findViewById(R.id.back_btn_film);
 
         return view;
     }
@@ -78,12 +75,6 @@ public class FragmentFilmInformation extends BaseFragment implements FragmentFil
         super.onViewCreated(view, savedInstanceState);
         mainActivity = (MainActivity) getActivity();
 
-        backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mainActivity.onBackPressed();
-            }
-        });
 
         fragmentFilmInformationPresenter = new FragmentFilmInformationPresenter(this);
         fragmentFilmInformationPresenter.loadData(id);
