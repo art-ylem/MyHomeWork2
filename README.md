@@ -12,16 +12,16 @@
   - Glid
   
 В приложении есть 5 соновных окон:  
-![alt text](screenshots/Снимок1.JPG)​
+![alt text](screenshots/Снимок1.JPG)​  
 
 Список новостей:  
-![alt text](screenshots/Снимок2.JPG)​
+![alt text](screenshots/Снимок2.JPG)​  
 
 Список событий и подробная информация конкретного события:  
-![alt text](screenshots/Снимок3.JPG)​ ![alt text](screenshots/Снимок4.JPG)​
+![alt text](screenshots/Снимок3.JPG)​ ![alt text](screenshots/Снимок4.JPG)​  
 
 Список фильмов и подробная информация конкретного фильма:  
-![alt text](screenshots/Снимок5.JPG)​ ![alt text](screenshots/Снимок6.JPG)​
+![alt text](screenshots/Снимок5.JPG)​ ![alt text](screenshots/Снимок6.JPG)​  
 
 Окно с картой, но которой показаны события. По клику на маркер отображается детальная информация данного события:  
 ![alt text](screenshots/Снимок7.JPG)​
